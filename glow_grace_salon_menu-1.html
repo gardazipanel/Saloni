@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glow & Grace | Salon Menu</title>
+<style>
+:root{--ink:#29232a;--muted:#786d78;--rose:#b85f7b;--pink:#f8e8ed;--cream:#fffaf7;--line:#f0dce3}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+header{padding:28px 6%;background:linear-gradient(120deg,#f7e1e8,#fff7f1);display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.brand{font-family:Georgia,serif;font-size:30px;font-weight:bold;color:#754458}.brand span{display:block;font:12px Arial;letter-spacing:3px;text-transform:uppercase;color:#98727f;margin-top:5px}
+header p{color:#755f69;margin:0;font-size:14px}
+.hero{padding:48px 6% 30px;text-align:center}.hero h1{font:clamp(30px,5vw,48px) Georgia,serif;margin:0 0 12px}.hero p{color:var(--muted);margin:0}
+main{max-width:1180px;margin:auto;padding:10px 22px 60px}.section-title{font:26px Georgia,serif;margin:30px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:white;border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 5px 18px #6f40500b;transition:.2s}
+.card.selected{outline:3px solid #c77c96;transform:translateY(-2px)}
+.card img{width:100%;height:155px;object-fit:cover;display:block;background:#f1e4e7}
+.card-content{padding:15px}.card h3{margin:0 0 7px;font-size:17px}.desc{font-size:13px;color:var(--muted);min-height:32px;line-height:1.4}
+.price-row{display:flex;justify-content:space-between;align-items:center;margin-top:13px}.price{font-weight:bold;color:var(--rose)}
+button{border:0;border-radius:22px;padding:10px 17px;background:var(--rose);color:white;font-weight:bold;cursor:pointer}
+button:hover{filter:brightness(.94)}.select-btn{font-size:12px;padding:8px 14px}.selected .select-btn{background:#6f4657}
+.booking{margin-top:38px;background:white;border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;grid-template-columns:1.1fr .9fr;gap:25px}
+.booking h2{font:27px Georgia,serif;margin:0 0 8px}.hint{font-size:13px;color:var(--muted);margin:0 0 18px}
+label{display:block;font-size:13px;font-weight:bold;margin:13px 0 6px}
+input,select{width:100%;padding:12px;border:1px solid #e7d6dc;border-radius:10px;font-size:14px;background:#fffdfd;color:var(--ink)}
+.summary{background:#fff7f9;border-radius:15px;padding:18px}.summary h3{margin:0 0 12px}.summary-item{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;font-weight:bold;font-size:18px;margin:16px 0}
+.note{font-size:12px;color:var(--muted);line-height:1.5}.full{width:100%;padding:13px}
+#receipt{display:none;margin-top:20px;border:1px dashed #c77c96;background:#fff8fa;border-radius:15px;padding:20px}
+#receipt h3{font:24px Georgia,serif;margin:0 0 8px;color:#754458}.token{font-size:30px;font-weight:bold;color:var(--rose);letter-spacing:2px;margin:8px 0}
+footer{text-align:center;color:#8a7880;font-size:12px;padding:25px}
+@media(max-width:700px){.booking{grid-template-columns:1fr}header{justify-content:center;text-align:center}}
+</style>
+</head>
+<body>
+<header><div class="brand">Glow & Grace<span>Beauty Salon</span></div><p>Feel beautiful. Feel confident. ✨</p></header>
+<section class="hero"><h1>Your Beauty, Your Style</h1><p>Choose your services, select your favourite stylist and book your salon token.</p></section>
+<main>
+<h2 class="section-title">Hair Services</h2>
+<div class="grid" id="hair">
+ <article class="card" data-name="Classic Haircut" data-price="800"><img loading="lazy" src="https://images.unsplash.com/photo-1560869713-7d0a29430803?w=700&auto=format&fit=crop&q=80" alt="Haircut style"><div class="card-content"><h3>Classic Haircut</h3><div class="desc">Clean cut and fresh everyday look.</div><div class="price-row"><span class="price">Rs. 800</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+ <article class="card" data-name="Layer Cut" data-price="1200"><img loading="lazy" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=700&auto=format&fit=crop&q=80" alt="Layered hairstyle"><div class="card-content"><h3>Layer Cut</h3><div class="desc">Soft layers with movement and shape.</div><div class="price-row"><span class="price">Rs. 1,200</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+ <article class="card" data-name="Hair Styling" data-price="1500"><img loading="lazy" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700&auto=format&fit=crop&q=80" alt="Salon hair styling"><div class="card-content"><h3>Hair Styling</h3><div class="desc">Blow-dry, curls or a special occasion style.</div><div class="price-row"><span class="price">Rs. 1,500</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+ <article class="card" data-name="Hair Color" data-price="3500"><img loading="lazy" src="https://images.unsplash.com/photo-1519697233448-6eec9b5194c8?w=700&auto=format&fit=crop&q=80" alt="Hair color"><div class="card-content"><h3>Hair Color</h3><div class="desc">Global color and fresh new shades. Price starts here.</div><div class="price-row"><span class="price">From Rs. 3,500</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+</div>
+<h2 class="section-title">Skin & Beauty</h2>
+<div class="grid" id="beauty">
+ <article class="card" data-name="Basic Facial" data-price="1800"><img loading="lazy" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&auto=format&fit=crop&q=80" alt="Facial spa treatment"><div class="card-content"><h3>Basic Facial</h3><div class="desc">Cleansing, exfoliation and refreshing care.</div><div class="price-row"><span class="price">Rs. 1,800</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+ <article class="card" data-name="Glow Facial" data-price="2800"><img loading="lazy" src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=700&auto=format&fit=crop&q=80" alt="Glow facial spa"><div class="card-content"><h3>Glow Facial</h3><div class="desc">Deep-cleaning facial for a fresh glow.</div><div class="price-row"><span class="price">Rs. 2,800</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+ <article class="card" data-name="Waxing" data-price="1000"><img loading="lazy" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=700&auto=format&fit=crop&q=80" alt="Beauty care"><div class="card-content"><h3>Waxing</h3><div class="desc">Neat and smooth skin care. Price starts here.</div><div class="price-row"><span class="price">From Rs. 1,000</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+ <article class="card" data-name="Manicure & Pedicure" data-price="2000"><img loading="lazy" src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&auto=format&fit=crop&q=80" alt="Nail manicure"><div class="card-content"><h3>Manicure & Pedicure</h3><div class="desc">Nail shaping and relaxing hand and foot care.</div><div class="price-row"><span class="price">Rs. 2,000</span><button class="select-btn" onclick="toggle(this)">Select</button></div></div></article>
+</div>
+
+<section class="booking">
+<div><h2>Book Your Appointment</h2><p class="hint">Select one or more services, then enter your details.</p>
+<label for="customer">Your Name</label><input id="customer" placeholder="Enter your full name" autocomplete="name">
+<label for="phone">Mobile Number</label><input id="phone" type="tel" placeholder="03XX XXXXXXX" autocomplete="tel">
+<label for="stylist">Choose Your Stylist</label><select id="stylist"><option value="">Select a stylist</option><option>Ayesha</option><option>Alena</option><option>Hina</option><option>Maria</option><option>Any Available Stylist</option></select>
+<label for="date">Appointment Date</label><input id="date" type="date">
+<label for="time">Preferred Time</label><select id="time"><option value="">Select time</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>01:00 PM</option><option>02:00 PM</option><option>03:00 PM</option><option>04:00 PM</option><option>05:00 PM</option><option>06:00 PM</option><option>07:00 PM</option></select>
+</div>
+<div><div class="summary"><h3>Your Selection</h3><div id="items"><p class="note">No services selected yet.</p></div><div class="total"><span>Total</span><span id="total">Rs. 0</span></div><button class="full" onclick="book()">Done · Generate Token</button><p class="note">Prices are sample prices. Please confirm final charges at the salon. This demo creates a token on this device; it does not send a booking to the salon.</p></div>
+<div id="receipt"><h3>Booking Token</h3><div class="token" id="token"></div><div id="receiptDetails"></div><p class="note">Please show this token at the salon reception.</p><button onclick="window.print()">Print Token</button></div></div>
+</section>
+</main>
+<footer>Glow & Grace Beauty Salon · Thank you for choosing us</footer>
+<script>
+const selected = new Map();
+function toggle(btn){
+ const card=btn.closest('.card'), name=card.dataset.name, price=Number(card.dataset.price);
+ if(selected.has(name)){selected.delete(name);card.classList.remove('selected');btn.textContent='Select'}
+ else{selected.set(name,price);card.classList.add('selected');btn.textContent='Selected'}
+ render();
+}
+function render(){
+ const box=document.getElementById('items');
+ if(!selected.size) box.innerHTML='<p class="note">No services selected yet.</p>';
+ else box.innerHTML=[...selected].map(([n,p])=>`<div class="summary-item"><span>${n}</span><strong>Rs. ${p.toLocaleString('en-PK')}</strong></div>`).join('');
+ const total=[...selected.values()].reduce((a,b)=>a+b,0);
+ document.getElementById('total').textContent='Rs. '+total.toLocaleString('en-PK');
+}
+function book(){
+ const name=document.getElementById('customer').value.trim(), phone=document.getElementById('phone').value.trim();
+ const stylist=document.getElementById('stylist').value, date=document.getElementById('date').value, time=document.getElementById('time').value;
+ if(!selected.size){alert('Please select at least one service.');return}
+ if(!name||!phone||!stylist||!date||!time){alert('Please complete your name, mobile number, stylist, date and time.');return}
+ if(!/^(\+92|0)?3\d{9}$/.test(phone.replace(/[\s-]/g,''))){alert('Please enter a valid Pakistan mobile number.');return}
+ const token='GG-'+Math.random().toString(36).slice(2,6).toUpperCase()+'-'+String(Date.now()).slice(-4);
+ document.getElementById('token').textContent=token;
+ document.getElementById('receiptDetails').innerHTML=`<p><b>Name:</b> ${escapeHTML(name)}</p><p><b>Mobile:</b> ${escapeHTML(phone)}</p><p><b>Stylist:</b> ${escapeHTML(stylist)}</p><p><b>Date:</b> ${escapeHTML(date)} · ${escapeHTML(time)}</p><p><b>Services:</b> ${[...selected.keys()].map(escapeHTML).join(', ')}</p><p><b>Total:</b> ${document.getElementById('total').textContent}</p>`;
+ document.getElementById('receipt').style.display='block';
+ document.getElementById('receipt').scrollIntoView({behavior:'smooth'});
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+document.getElementById('date').min=new Date().toISOString().split('T')[0];
+</script>
+</body></html>
